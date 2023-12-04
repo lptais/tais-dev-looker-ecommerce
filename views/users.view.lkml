@@ -72,14 +72,10 @@ view: users {
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: latitude {
-    type: number
-    sql: ${TABLE}.latitude ;;
-  }
-
-  dimension: longitude {
-    type: number
-    sql: ${TABLE}.longitude ;;
+  dimension: geo_coordinates {
+    type: location
+    sql_latitude: ${TABLE}.latitude ;;
+    sql_longitude: ${TABLE}.longitude ;;
   }
 
   dimension: postal_code {
@@ -112,7 +108,6 @@ view: users {
   id,
   last_name,
   first_name,
-  order_items.count,
   orders.count,
   events.count
   ]
