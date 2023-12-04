@@ -110,6 +110,11 @@ view: order_items {
     sql: ${total_revenue}/${total_users} ;;
   }
 
+  measure: average_order_value {
+    type: number
+    sql: ${total_revenue}/${order_count} ;;
+  }
+
 
   # ----- Sets of fields for drilling ------
   set: detail {
