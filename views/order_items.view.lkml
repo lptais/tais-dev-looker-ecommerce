@@ -97,16 +97,18 @@ view: order_items {
 
   measure: total_users {
     type: count_distinct
-    sql: ${user_id}id} ;;
+    sql: ${user_id} ;;
   }
 
   measure: average_sale_price {
     type: average
-    sql: ${sale_price} ;;  }
+    sql: ${sale_price} ;;
+  }
 
   measure: average_spend_per_user {
     type: number
-    sql: ${total_revenue}/${total_users} ;;  }
+    sql: ${total_revenue}/${total_users} ;;
+  }
 
 
   # ----- Sets of fields for drilling ------
