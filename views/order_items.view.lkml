@@ -18,13 +18,13 @@ view: order_items {
 
   dimension_group: created {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, month_name, quarter, year]
     sql: ${TABLE}.created_at ;;
   }
 
   dimension_group: delivered {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, month_name, quarter, year]
     sql: ${TABLE}.delivered_at ;;
   }
     # Here's what a typical dimension looks like in LookML.
@@ -51,7 +51,7 @@ view: order_items {
 
   dimension_group: returned {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, month_name, quarter, year]
     sql: ${TABLE}.returned_at ;;
   }
 
@@ -62,7 +62,7 @@ view: order_items {
 
   dimension_group: shipped {
     type: time
-    timeframes: [raw, time, date, week, month, quarter, year]
+    timeframes: [raw, time, date, week, month, month_name, quarter, year]
     sql: ${TABLE}.shipped_at ;;
   }
 
