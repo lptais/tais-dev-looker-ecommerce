@@ -84,19 +84,19 @@ view: order_items {
   measure: total_revenue {
     type: sum
     sql: ${sale_price} ;;
-    value_format: "0.00"}
+    value_format: "$0.00"}
 
   measure: total_revenue_completed_orders {
     type: sum
     sql: ${sale_price} ;;
     filters:  [status: "Complete"]
-    value_format: "0.00"
+    value_format: "$0.00"
     }
 
   measure: order_count {
     type: count_distinct
     sql: ${order_id} ;;
-    drill_fields: [order_id, order_item_count, total_revenue]
+    drill_fields: [order_id, total_revenue]
   }
 
   measure: order_item_count {
