@@ -3,7 +3,6 @@ view: users {
   # The sql_table_name parameter indicates the underlying database table
   # to be used for all fields in this view.
   sql_table_name: `bigquery-public-data.thelook_ecommerce.users` ;;
-  drill_fields: [id, city]
 
   # This primary key is the unique key for this table in the underlying database.
   # You need to define a primary key in a view in order to join to other views.
@@ -13,6 +12,12 @@ view: users {
     type: number
     sql: ${TABLE}.id ;;
   }
+
+  dimension: email_address {
+    type: string
+    sql: ${TABLE}.email ;;
+  }
+
     # Here's what a typical dimension looks like in LookML.
     # A dimension is a groupable field that can be used to filter query results.
     # This dimension will be called "Age" in Explore.
@@ -29,9 +34,13 @@ view: users {
   measure: total_age {
     type: sum
     sql: ${age} ;;  }
+
   measure: average_age {
+    description: "Average age"
     type: average
-    sql: ${age} ;;  }
+    sql: ${age} ;;
+    value_format: "0.##"
+  }
 
   dimension: city {
     type: string
@@ -59,12 +68,18 @@ view: users {
 
   dimension: first_name {
     type: string
-    sql: ${TABLE}.first_name ;;
+    sql: ${TABLE}.first_name_v2 ;;
   }
 
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
+  }
+
+  dimension: full_name {
+    type: string
+    sql: CONCAT(${first_name}, ' ' , ${last_name}) ;;
+    label: "Name"
   }
 
   dimension: last_name {
@@ -98,20 +113,28 @@ view: users {
     type: string
     sql: ${TABLE}.traffic_source ;;
   }
+
+  measure: distinct_post_codes {
+    type:  count_distinct
+    sql: ${postal_code} ;;
+  }
+
   measure: total_users {
     type: count
-    drill_fields: [detail*]
   }
 
-  # ----- Sets of fields for drilling ------
-  set: detail {
-    fields: [
-  id,
-  last_name,
-  first_name,
-  orders.count,
-  events.count
-  ]
+  measure: median_age {
+    type: median
+    sql: ${age} ;;
+    label: "Age (median)"
+    description: "URL to what median means"
+    value_format: "##.0"
   }
 
+  measure: distance_from_median {
+    type: number
+    description: "Actual description this time"
+    sql: ${median_age} - MAX(${age}) ;;
+    value_format: "#.0"
+  }
 }

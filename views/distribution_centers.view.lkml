@@ -28,10 +28,13 @@ view: distribution_centers {
 
   measure: total_latitude {
     type: sum
-    sql: ${latitude} ;;  }
+    sql: ${latitude} ;;
+  }
+
   measure: average_latitude {
     type: average
-    sql: ${latitude} ;;  }
+    sql: ${latitude} ;;
+  }
 
   dimension: longitude {
     type: number
